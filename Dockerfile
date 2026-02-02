@@ -1,5 +1,15 @@
 FROM nvidia/cuda:12.8.1-cudnn-devel-ubuntu24.04
 
+RUN rm -f /etc/apt/sources.list \
+ && rm -f /etc/apt/sources.list.d/* \
+ && printf '%s\n' \
+"Types: deb" \
+"URIs: https://mirrors.aliyun.com/ubuntu/" \
+"Suites: noble noble-updates noble-backports noble-security" \
+"Components: main restricted universe multiverse" \
+"Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg" \
+> /etc/apt/sources.list.d/ubuntu.sources
+
 # Hardware Architecture
 ENV TORCH_CUDA_ARCH_LIST=8.9
 ENV CUDA_HOME=/usr/local/cuda-12.8
